@@ -2,6 +2,9 @@ package com.springcourse.domains;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.springcourse.enums.Role;
+
 import lombok.*;
 
 @Getter
