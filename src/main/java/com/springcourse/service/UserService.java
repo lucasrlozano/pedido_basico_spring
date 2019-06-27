@@ -16,14 +16,14 @@ public class UserService {
 	@Autowired private UserRepository userRepository;
 	
 	public User save(User user) {
-		String hash = HashUtil.getSecureHash(user.getName());
+		String hash = HashUtil.getSecureHash(user.getPassword());
 		user.setPassword(hash);
 		User created = userRepository.save(user);
 		return created;	
 	}
 	
 	public User update(User user) {
-		String hash = HashUtil.getSecureHash(user.getName());
+		String hash = HashUtil.getSecureHash(user.getPassword());
 		user.setPassword(hash);
 		User updated = userRepository.save(user);
 		return updated;
