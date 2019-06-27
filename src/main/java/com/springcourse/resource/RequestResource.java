@@ -19,7 +19,7 @@ import com.springcourse.service.RequestService;
 import com.springcourse.service.RequestStageService;
 
 @RestController
-@RequestMapping(value = "request")
+@RequestMapping(value = "requests")
 public class RequestResource {
 	@Autowired private RequestService requestService;
 	@Autowired private RequestStageService stageService;
@@ -30,7 +30,7 @@ public class RequestResource {
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdRequest);
 	}
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	public ResponseEntity<Request> update(@PathVariable(name = "id") Long id, @RequestBody Request request){
 		request.setId(id);
 		Request updatedRequest = requestService.save(request);
