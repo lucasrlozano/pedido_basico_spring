@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springcourse.enums.RequestState;
 
 import lombok.*;
@@ -58,6 +59,7 @@ public class Request implements Serializable{
 	@JoinColumn(name = "owner_id", nullable = false)
 	private User owner;
 	
+	@Getter(onMethod = @_({@JsonIgnore}))
 	@OneToMany(mappedBy = "request")
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
 	
