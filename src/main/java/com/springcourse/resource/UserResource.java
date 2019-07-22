@@ -2,6 +2,8 @@ package com.springcourse.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springcourse.domains.Request;
 import com.springcourse.domains.User;
 import com.springcourse.dto.UserLoginDTO;
+import com.springcourse.dto.UserSavedto;
 import com.springcourse.model.PageModel;
 import com.springcourse.model.PageRequestModel;
 import com.springcourse.service.RequestService;
@@ -29,8 +32,9 @@ public class UserResource {
 	@Autowired private RequestService requestService;
 	
 	@PostMapping
-	public ResponseEntity<User> save(@RequestBody User user){
-			User created = userService.save(user);
+	public ResponseEntity<User> save(@RequestBody @Valid UserSavedto userDTO){
+			User userToSave = userDTO.transformToUser();
+			User created = userService.save(userToSave);
 			return ResponseEntity.status(HttpStatus.CREATED).body(created);
 	}
 	
@@ -59,7 +63,7 @@ public class UserResource {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<User> login(@RequestBody UserLoginDTO user){
+	public ResponseEntity<User> login(@RequestBody @Valid UserLoginDTO user){
 		User loggedUser = userService.login(user.getEmail(), user.getPassword());
 		return ResponseEntity.ok(loggedUser);
 	}
